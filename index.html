@@ -8,6 +8,49 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+
+/* ================= MOBILE OPTIMIZED ================= */
+@media (max-width: 480px) {
+
+body{
+    align-items: flex-start;
+    padding-top: 40px;
+}
+
+.card{
+    width: 88%;
+    max-width: 340px;      /* ⭐ ลดความกว้าง */
+    padding: 30px 22px;    /* ⭐ ลด padding */
+    border-radius: 22px;
+    backdrop-filter: blur(16px);
+}
+
+.profile-img{
+    width: 95px;           /* ⭐ รูปเล็กลง */
+    height: 95px;
+    margin-bottom: 18px;
+}
+
+h1{
+    font-size: 1.4rem;     /* ⭐ ตัวหนังสือเล็กลง */
+}
+
+p{
+    font-size: 0.9rem;
+    margin-bottom: 22px;
+}
+
+.btn{
+    font-size: 0.95rem;
+    padding: 12px;
+}
+
+.btn i{
+    font-size: 1.1rem;
+}
+}
+
+
 :root{
     --glass-bg: rgba(255,255,255,.10);
     --glass-border: rgba(255,255,255,.25);
