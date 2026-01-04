@@ -1,184 +1,204 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --neon-blue: #00f3ff;
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.2);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: white;
-            overflow: hidden;
-            background-color: #050a14; 
-        }
+<style>
+:root{
+    --glass-bg: rgba(255,255,255,.10);
+    --glass-border: rgba(255,255,255,.25);
+    --neon-blue:#00f3ff;
+}
 
-         #myVideo{
-          position: fixed;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: -1;
-         }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    overflow:hidden;
+    background:#050a14;
+}
 
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 45px 40px;
-            text-align: center;
-            width: 90%;
-            max-width: 420px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            animation: float 6s ease-in-out infinite;
-        }
+/* ================= VIDEO BACKGROUND ================= */
+#myVideo{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
+}
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
+/* ================= TAP TO START (MOBILE) ================= */
+#tapStart{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    letter-spacing:1px;
+    z-index:9999;
+    cursor:pointer;
+}
 
-        .profile-img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            /* รูปยังคงขอบฟ้าเพื่อให้เข้ากับธีม Dynamic */
-            border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 25px rgba(0, 217, 255, 0.5);
-            margin-bottom: 25px;
-        }
+/* ================= CARD ================= */
+.card{
+    width:92%;
+    max-width:460px;
+    padding:45px 40px;
+    text-align:center;
+    background:var(--glass-bg);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--glass-border);
+    border-radius:28px;
+    box-shadow:0 10px 40px rgba(0,0,0,.45);
+    animation:float 6s ease-in-out infinite;
+}
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+@keyframes float{
+    0%{transform:translateY(0)}
+    50%{transform:translateY(-15px)}
+    100%{transform:translateY(0)}
+}
 
-        p {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 35px;
-            line-height: 1.5;
-        }
+.profile-img{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid var(--neon-blue);
+    box-shadow:0 0 25px rgba(0,243,255,.6);
+    margin-bottom:25px;
+}
 
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+h1{
+    font-size:2rem;
+    margin-bottom:10px;
+}
 
-        /* --- สไตล์ปุ่มทั่วไป --- */
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            padding: 14px 20px;
-            border-radius: 50px;
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
+p{
+    opacity:.85;
+    margin-bottom:35px;
+    line-height:1.5;
+}
 
-        .btn i {
-            margin-right: 12px;
-            font-size: 1.3rem;
-        }
+/* ================= LINKS ================= */
+.links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
 
-        /* เอฟเฟกต์พื้นฐานตอน Hover (ขยับขึ้นนิดนึง) */
-        .btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            border-color: transparent;
-            color: white; /* บังคับตัวหนังสือสีขาว */
-        }
+.btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    padding:15px;
+    border-radius:50px;
+    text-decoration:none;
+    color:#fff;
+    background:rgba(255,255,255,.12);
+    border:1px solid var(--glass-border);
+    font-size:1.1rem;
+    font-weight:600;
+    transition:.3s;
+}
 
-        /* --- สีเฉพาะของแต่ละแอป (Brand Colors) --- */
+.btn:hover{
+    transform:translateY(-3px) scale(1.03);
+}
 
-        /* Instagram: ไล่สีส้ม-ม่วง-ชมพู */
-        .btn.instagram:hover {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            box-shadow: 0 0 25px #cc2366;
-        }
+/* Brand hover */
+.instagram:hover{
+    background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+}
+.facebook:hover{
+    background:#1877F2;
+}
+.tiktok:hover{
+    background:#000;
+    box-shadow:3px 3px 0 #fe2c55,-3px -3px 0 #25f4ee;
+}
+.discord:hover{
+    background:#5865F2;
+}
 
-        /* Facebook: สีน้ำเงิน Meta */
-        .btn.facebook:hover {
-            background: #1877F2;
-            box-shadow: 0 0 25px #1877F2;
-        }
-
-        /* TikTok: สีดำ + เงา Glitch (ฟ้า/แดง) */
-        .btn.tiktok:hover {
-            background: #000000;
-            /* เงาสองชั้น สีแดงและฟ้า */
-            box-shadow: 3px 3px 0px #fe2c55, -3px -3px 0px #25f4ee;
-        }
-
-        /* Discord: สีม่วง Blurple */
-        .btn.discord:hover {
-            background: #5865F2;
-            box-shadow: 0 0 25px #5865F2;
-        }
-
-    </style>
+/* ================= MOBILE ================= */
+@media(max-width:480px){
+    .card{
+        padding:40px 28px;
+    }
+    h1{
+        font-size:1.7rem;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <video autoplay muted loop playsinline id="myVideo">
-        <source src="bg.mp4" type="video/mp4">
-    </video>
+<!-- TAP TO START -->
+<div id="tapStart">Tap to Start</div>
 
-    <div class="card">
-        <img src="https://img2.pic.in.th/IMG_3830a34fe2dcfe027c7e.jpg" alt="Profile" class="profile-img">
-        
-        <h1>Chaipaakorn</h1>
-        <p>Dev FiveM<br>Myskill Lua | Css | Html | js</p>
+<!-- VIDEO -->
+<video id="myVideo" autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4">
+</video>
 
-        <div class="links">
-            <a href="https://www.instagram.com/chx_rnn/?next=%2F" target="_blank" class="btn instagram">
-                <i class="fa-brands fa-instagram"></i> Instagram
-            </a>
+<!-- CARD -->
+<div class="card">
+    <img src="https://img2.pic.in.th/IMG_3830a34fe2dcfe027c7e.jpg" class="profile-img">
 
-            <a href="https://www.facebook.com/chay.pkr.reuxng.wanich.ykul/" target="_blank" class="btn facebook">
-                <i class="fa-brands fa-facebook"></i> Facebook
-            </a>
+    <h1>Chaipaakorn</h1>
+    <p>Dev FiveM<br>Lua | CSS | HTML | JS</p>
 
-            <a href="https://www.tiktok.com/@chaipakorn123" target="_blank" class="btn tiktok">
-                <i class="fa-brands fa-tiktok"></i> TikTok
-            </a>
+    <div class="links">
+        <a href="https://www.instagram.com/chx_rnn/" target="_blank" class="btn instagram">
+            <i class="fa-brands fa-instagram"></i> Instagram
+        </a>
 
-            <a href="https://discord.gg/XPjUEU6uMd" target="_blank" class="btn discord">
-                <i class="fa-brands fa-discord"></i> Discord
-            </a>
-        </div>
+        <a href="https://www.facebook.com/chay.pkr.reuxng.wanich.ykul/" target="_blank" class="btn facebook">
+            <i class="fa-brands fa-facebook"></i> Facebook
+        </a>
+
+        <a href="https://www.tiktok.com/@chaipakorn123" target="_blank" class="btn tiktok">
+            <i class="fa-brands fa-tiktok"></i> TikTok
+        </a>
+
+        <a href="https://discord.gg/XPjUEU6uMd" target="_blank" class="btn discord">
+            <i class="fa-brands fa-discord"></i> Discord
+        </a>
     </div>
+</div>
+
+<script>
+const video = document.getElementById("myVideo");
+const tap = document.getElementById("tapStart");
+
+function startVideo(){
+    video.play().catch(()=>{});
+    tap.style.display="none";
+}
+
+tap.addEventListener("click", startVideo);
+document.addEventListener("touchstart", startVideo, { once:true });
+</script>
 
 </body>
 </html>
